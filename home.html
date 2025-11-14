@@ -15,6 +15,13 @@
     </div>
 
     <div class="app-main">
+      <div id="welcomeUser" class="card" style="display:none;">
+        <div class="card-title" id="welcomeText"></div>
+        <div class="card-sub mt-8">
+          Đây là giao diện sau khi bạn đăng nhập tài khoản khách hàng.
+        </div>
+      </div>
+
       <div class="card">
         <div class="field-label">Tỉnh / Thành</div>
         <select class="field-input">
@@ -66,5 +73,19 @@
       </a>
     </div>
   </div>
+
+  <script>
+    // Kiểm tra trạng thái đăng nhập
+    const loggedIn = localStorage.getItem('table360_logged_in') === 'true';
+    const user = localStorage.getItem('table360_user') || 'Khách';
+
+    const box = document.getElementById('welcomeUser');
+    const text = document.getElementById('welcomeText');
+
+    if (loggedIn) {
+      box.style.display = 'block';
+      text.textContent = 'Xin chào, ' + user + ' 👋';
+    }
+  </script>
 </body>
 </html>
