@@ -1,1 +1,90 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Table360 - Đăng nhập</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app">
+    <div class="app-topbar">
+      <button class="app-topbar-back">
+        <a href="index.html">←</a>
+      </button>
+      <div class="app-topbar-title">Đăng nhập</div>
+      <div style="width:32px;"></div>
+    </div>
 
+    <div class="app-main">
+      <div class="card">
+        <div class="field">
+          <div class="field-label">Số điện thoại</div>
+          <input class="field-input" type="text" placeholder="Nhập số điện thoại của bạn">
+        </div>
+
+        <div class="field">
+          <div class="field-label">Mật khẩu</div>
+          <div class="field-input-wrapper">
+            <input id="loginPassword" class="field-input" type="password" placeholder="Nhập mật khẩu">
+            <button id="toggleLoginPassword" class="field-toggle">👁‍🗨</button>
+          </div>
+          <div style="text-align:right;margin-top:4px;">
+            <a href="forgot.html" style="font-size:12px;color:#e53935;text-decoration:none;">
+              Quên mật khẩu?
+            </a>
+          </div>
+        </div>
+
+        <button class="btn btn-primary mt-16" onclick="fakeLogin()">
+          Đăng nhập
+        </button>
+
+        <p class="text-center text-muted mt-16">Hoặc đăng nhập với</p>
+
+        <div style="display:flex;gap:8px;margin-top:8px;">
+          <button class="btn" style="border:1px solid #ddd;background:#fff;">
+            🟦 Google
+          </button>
+          <button class="btn" style="border:1px solid #ddd;background:#fff;">
+            📘 Facebook
+          </button>
+        </div>
+
+        <p class="text-center" style="margin-top:16px;font-size:13px;">
+          Bạn chưa có tài khoản?
+          <a href="register.html" class="link">Đăng ký</a>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast">Đăng nhập demo thành công (fake)!</div>
+
+  <script>
+    // ẩn / hiện mật khẩu
+    const pwdInput = document.getElementById('loginPassword');
+    const btnToggle = document.getElementById('toggleLoginPassword');
+    btnToggle.addEventListener('click', function () {
+      const isPassword = pwdInput.type === 'password';
+      pwdInput.type = isPassword ? 'text' : 'password';
+      btnToggle.textContent = isPassword ? '👁' : '👁‍🗨';
+    });
+
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2000);
+    }
+
+    function fakeLogin() {
+      // demo: chỉ hiển thị thông báo rồi chuyển qua home
+      showToast('Đăng nhập thành công (demo)!');
+      setTimeout(() => {
+        window.location.href = 'home.html';
+      }, 800);
+    }
+  </script>
+</body>
+</html>
