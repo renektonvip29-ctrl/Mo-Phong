@@ -1,1 +1,72 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Table360 - Quên mật khẩu</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app">
+    <div class="app-topbar">
+      <button class="app-topbar-back">
+        <a href="login.html">←</a>
+      </button>
+      <div class="app-topbar-title">Quên mật khẩu</div>
+      <div style="width:32px;"></div>
+    </div>
 
+    <div class="app-main">
+      <div class="card">
+        <div class="field">
+          <div class="field-label">Địa chỉ email</div>
+          <input id="email" class="field-input" type="email" placeholder="you@example.com">
+        </div>
+
+        <p class="text-muted mt-8">
+          Vui lòng nhập địa chỉ email bạn đã đăng ký để nhận lại mật khẩu ngay lập tức.
+        </p>
+
+        <button id="btnSend" class="btn btn-primary mt-16" disabled style="opacity:0.6;cursor:not-allowed;">
+          Gửi
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast">
+    Đã gửi thư khôi phục tài khoản thành công. Xin vui lòng kiểm tra email.
+  </div>
+
+  <script>
+    const emailInput = document.getElementById('email');
+    const btnSend = document.getElementById('btnSend');
+
+    function validateEmail(email) {
+      return email.includes('@') && email.includes('.');
+    }
+
+    emailInput.addEventListener('input', function () {
+      if (validateEmail(emailInput.value)) {
+        btnSend.disabled = false;
+        btnSend.style.opacity = 1;
+        btnSend.style.cursor = 'pointer';
+      } else {
+        btnSend.disabled = true;
+        btnSend.style.opacity = 0.6;
+        btnSend.style.cursor = 'not-allowed';
+      }
+    });
+
+    btnSend.addEventListener('click', function () {
+      if (btnSend.disabled) return;
+      const toast = document.getElementById('toast');
+      toast.classList.add('show');
+      setTimeout(() => {
+        toast.classList.remove('show');
+        window.location.href = 'login.html';
+      }, 1200);
+    });
+  </script>
+</body>
+</html>
