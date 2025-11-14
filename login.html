@@ -1,70 +1,3 @@
-<!DOCTYPE html>
-<html lang="vi">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Table360 - Đăng nhập</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
-  <div class="app">
-    <div class="app-topbar">
-      <button class="app-topbar-back">
-        <a href="index.html">←</a>
-      </button>
-      <div class="app-topbar-title">Đăng nhập</div>
-      <div style="width:32px;"></div>
-    </div>
-
-    <div class="app-main">
-      <div class="card">
-        <div class="field">
-          <div class="field-label">Số điện thoại</div>
-          <input id="loginPhone" class="field-input" type="text" placeholder="Nhập số điện thoại của bạn">
-        </div>
-
-        <div class="field">
-          <div class="field-label">Mật khẩu</div>
-          <div class="field-input-wrapper">
-            <input id="loginPassword" class="field-input" type="password" placeholder="Nhập mật khẩu">
-            <button id="toggleLoginPassword" class="field-toggle">👁‍🗨</button>
-          </div>
-          <div style="text-align:right;margin-top:4px;">
-            <a href="forgot.html" style="font-size:12px;color:#e53935;text-decoration:none;">
-              Quên mật khẩu?
-            </a>
-          </div>
-        </div>
-
-        <button class="btn btn-primary mt-16" onclick="handleLogin()">
-          Đăng nhập
-        </button>
-
-        <p class="text-center text-muted mt-16">
-          Hoặc đăng nhập với
-        </p>
-
-        <div style="display:flex;gap:8px;margin-top:8px;">
-          <button class="btn" style="border:1px solid #ddd;background:#fff;">
-            🟦 Google
-          </button>
-          <button class="btn" style="border:1px solid #ddd;background:#fff;">
-            📘 Facebook
-          </button>
-        </div>
-
-        <p class="text-center" style="margin-top:16px;font-size:13px;">
-          Bạn chưa có tài khoản?
-          <a href="register.html" class="link">Đăng ký</a>
-        </p>
-
-        <p class="text-center text-muted" style="margin-top:8px;font-size:11px;">
-          (Demo: hiện tại tài khoản mẫu là SĐT <b>Admin</b> &amp; mật khẩu <b>Admin</b>)
-        </p>
-      </div>
-    </div>
-  </div>
-
   <div id="toast" class="toast"></div>
 
   <script>
@@ -84,15 +17,18 @@
       setTimeout(() => t.classList.remove('show'), 2000);
     }
 
-    // Demo logic: chỉ chấp nhận Admin / Admin
+    // Demo logic: tài khoản mẫu Phone = Admin, Pw = Admin
     function handleLogin() {
       const phone = document.getElementById('loginPhone').value.trim();
       const pw = document.getElementById('loginPassword').value.trim();
 
       if (phone === 'Admin' && pw === 'Admin') {
-        // Lưu trạng thái đã đăng nhập (demo)
+        // Lưu trạng thái đã đăng nhập
         localStorage.setItem('table360_logged_in', 'true');
-        localStorage.setItem('table360_user', 'Admin');
+
+        // Ở đây mình coi giá trị nhập ở ô "Số điện thoại" là TÊN luôn (demo)
+        localStorage.setItem('table360_user_name', phone);
+        localStorage.setItem('table360_user_phone', phone);
 
         showToast('Đăng nhập thành công!');
         setTimeout(() => {
