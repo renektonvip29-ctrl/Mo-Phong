@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Table360 - Chọn ngôn ngữ</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .language-section-title {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin: 12px 4px 4px;
+    }
+    .lang-check {
+      color: #007aff;
+      font-size: 16px;
+      margin-right: 4px;
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <div class="app-topbar">
+      <button class="app-topbar-back">
+        <a href="more.html">←</a>
+      </button>
+      <div class="app-topbar-title">Chọn ngôn ngữ</div>
+      <div style="width:32px;"></div>
+    </div>
+
+    <div class="app-main">
+      <div class="card">
+        <div class="language-section-title">Ngôn ngữ gợi ý</div>
+
+        <div class="list-item clickable-row" data-lang="vi">
+          <div class="list-left">
+            <div class="list-label">Tiếng Việt</div>
+          </div>
+          <div class="list-right">
+            <span class="lang-flag">🇻🇳</span>
+            <span class="lang-check" style="display:none;">✓</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:12px;">
+        <div class="language-section-title">Tất cả ngôn ngữ</div>
+
+        <!-- Bạn có thể thêm / bớt ngôn ngữ nếu muốn -->
+        <div class="list-item clickable-row" data-lang="en">
+          <div class="list-left"><div class="list-label">English</div></div>
+          <div class="list-right"><span>🇬🇧</span><span class="lang-check" style="display:none;">✓</span></div>
+        </div>
+
+        <div class="list-item clickable-row" data-lang="fr">
+          <div class="list-left"><div class="list-label">Français</div></div>
+          <div class="list-right"><span>🇫🇷</span><span class="lang-check" style="display:none;">✓</span></div>
+        </div>
+
+        <div class="list-item clickable-row" data-lang="de">
+          <div class="list-left"><div class="list-label">Deutsch</div></div>
+          <div class="list-right"><span>🇩🇪</span><span class="lang-check" style="display:none;">✓</span></div>
+        </div>
+
+        <div class="list-item clickable-row" data-lang="it">
+          <div class="list-left"><div class="list-label">Italiano</div></div>
+          <div class="list-right"><span>🇮🇹</span><span class="lang-check" style="display:none;">✓</span></div>
+        </div>
+
+        <div class="list-item clickable-row" data-lang="es">
+          <div class="list-left"><div class="list-label">Español</div></div>
+          <div class="list-right"><span>🇪🇸</span><span class="lang-check" style="display:none;">✓</span></div>
+        </div>
+
+        <div class="list-item clickable-row" data-lang="ja">
+          <div class="list-left"><div class="list-label">日本語</div></div>
+          <div class="list-right"><span>🇯🇵</span><span class="lang-check" style="display:none;">✓</span></div>
+        </div>
+
+        <div class="list-item clickable-row" data-lang="ko">
+          <div class="list-left"><div class="list-label">한국어</div></div>
+          <div class="list-right"><span>🇰🇷</span><span class="lang-check" style="display:none;">✓</span></div>
+        </div>
+
+        <div class="list-item clickable-row" data-lang="th">
+          <div class="list-left"><div class="list-label">ภาษาไทย</div></div>
+          <div class="list-right"><span>🇹🇭</span><span class="lang-check" style="display:none;">✓</span></div>
+        </div>
+
+        <div class="list-item clickable-row" data-lang="ms">
+          <div class="list-left"><div class="list-label">Bahasa Malaysia</div></div>
+          <div class="list-right"><span>🇲🇾</span><span class="lang-check" style="display:none;">✓</span></div>
+        </div>
+
+        <div class="list-item clickable-row" data-lang="pt">
+          <div class="list-left"><div class="list-label">Português (PT)</div></div>
+          <div class="list-right"><span>🇵🇹</span><span class="lang-check" style="display:none;">✓</span></div>
+        </div>
+
+        <div class="list-item clickable-row" data-lang="ru">
+          <div class="list-left"><div class="list-label">Русский</div></div>
+          <div class="list-right"><span>🇷🇺</span><span class="lang-check" style="display:none;">✓</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast"></div>
+
+  <script>
+    const savedLang = localStorage.getItem('table360_lang') || 'vi';
+    const rows = document.querySelectorAll('.list-item[data-lang]');
+
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2000);
+    }
+
+    function refreshChecks() {
+      rows.forEach(row => {
+        const lang = row.getAttribute('data-lang');
+        const check = row.querySelector('.lang-check');
+        if (check) {
+          check.style.display = (lang === localStorage.getItem('table360_lang')) ? 'inline' : 'none';
+        }
+      });
+    }
+
+    rows.forEach(row => {
+      row.addEventListener('click', () => {
+        const lang = row.getAttribute('data-lang');
+        localStorage.setItem('table360_lang', lang);
+        refreshChecks();
+        showToast('Đã chọn ngôn ngữ (demo): ' + lang);
+        // Có thể tự quay lại tab Thêm sau 1s nếu muốn
+        setTimeout(() => {
+          window.location.href = 'more.html';
+        }, 700);
+      });
+    });
+
+    // Khởi tạo
+    if (!localStorage.getItem('table360_lang')) {
+      localStorage.setItem('table360_lang', savedLang);
+    }
+    refreshChecks();
+  </script>
+</body>
+</html>
