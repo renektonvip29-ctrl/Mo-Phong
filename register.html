@@ -39,7 +39,6 @@
         </div>
 
         <div class="field">
-          <div className="field-label">Mật khẩu</div>
           <div class="field-label">Mật khẩu</div>
           <div class="field-input-wrapper">
             <input id="regPw" class="field-input" type="password" placeholder="Tạo mật khẩu">
@@ -63,11 +62,15 @@
           Bạn đã có tài khoản?
           <a href="login.html" class="link">Đăng nhập</a>
         </p>
+
+        <p class="text-center text-muted" style="margin-top:8px;font-size:11px;">
+          (Demo hiện tại chỉ hỗ trợ đăng nhập tài khoản sẵn: <b>Admin / Admin</b>)
+        </p>
       </div>
     </div>
   </div>
 
-  <div id="toast" class="toast">Đăng ký demo thành công!</div>
+  <div id="toast" class="toast"></div>
 
   <script>
     function bindToggle(idInput, idButton) {
@@ -91,10 +94,8 @@
     }
 
     function fakeRegister() {
-      showToast('Tạo tài khoản thành công (demo)!');
-      setTimeout(() => {
-        window.location.href = 'login.html';
-      }, 800);
+      // Để đơn giản: chỉ báo demo, không tạo tài khoản thật
+      showToast('Demo: vui lòng đăng nhập bằng tài khoản Admin / Admin');
     }
   </script>
 </body>
