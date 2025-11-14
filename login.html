@@ -20,7 +20,7 @@
       <div class="card">
         <div class="field">
           <div class="field-label">Số điện thoại</div>
-          <input class="field-input" type="text" placeholder="Nhập số điện thoại của bạn">
+          <input id="loginPhone" class="field-input" type="text" placeholder="Nhập số điện thoại của bạn">
         </div>
 
         <div class="field">
@@ -36,11 +36,13 @@
           </div>
         </div>
 
-        <button class="btn btn-primary mt-16" onclick="fakeLogin()">
+        <button class="btn btn-primary mt-16" onclick="handleLogin()">
           Đăng nhập
         </button>
 
-        <p class="text-center text-muted mt-16">Hoặc đăng nhập với</p>
+        <p class="text-center text-muted mt-16">
+          Hoặc đăng nhập với
+        </p>
 
         <div style="display:flex;gap:8px;margin-top:8px;">
           <button class="btn" style="border:1px solid #ddd;background:#fff;">
@@ -55,14 +57,18 @@
           Bạn chưa có tài khoản?
           <a href="register.html" class="link">Đăng ký</a>
         </p>
+
+        <p class="text-center text-muted" style="margin-top:8px;font-size:11px;">
+          (Demo: hiện tại tài khoản mẫu là SĐT <b>Admin</b> &amp; mật khẩu <b>Admin</b>)
+        </p>
       </div>
     </div>
   </div>
 
-  <div id="toast" class="toast">Đăng nhập demo thành công (fake)!</div>
+  <div id="toast" class="toast"></div>
 
   <script>
-    // ẩn / hiện mật khẩu
+    // Ẩn / hiện mật khẩu
     const pwdInput = document.getElementById('loginPassword');
     const btnToggle = document.getElementById('toggleLoginPassword');
     btnToggle.addEventListener('click', function () {
@@ -78,12 +84,23 @@
       setTimeout(() => t.classList.remove('show'), 2000);
     }
 
-    function fakeLogin() {
-      // demo: chỉ hiển thị thông báo rồi chuyển qua home
-      showToast('Đăng nhập thành công (demo)!');
-      setTimeout(() => {
-        window.location.href = 'home.html';
-      }, 800);
+    // Demo logic: chỉ chấp nhận Admin / Admin
+    function handleLogin() {
+      const phone = document.getElementById('loginPhone').value.trim();
+      const pw = document.getElementById('loginPassword').value.trim();
+
+      if (phone === 'Admin' && pw === 'Admin') {
+        // Lưu trạng thái đã đăng nhập (demo)
+        localStorage.setItem('table360_logged_in', 'true');
+        localStorage.setItem('table360_user', 'Admin');
+
+        showToast('Đăng nhập thành công!');
+        setTimeout(() => {
+          window.location.href = 'home.html';
+        }, 800);
+      } else {
+        showToast('Sai tài khoản hoặc mật khẩu. Demo: dùng Admin / Admin');
+      }
     }
   </script>
 </body>
