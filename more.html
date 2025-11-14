@@ -15,21 +15,30 @@
     </div>
 
     <div class="app-main">
-      <div class="card">
-        <div class="card-title">Tài khoản</div>
-        <button class="btn btn-outline mt-8">Thông tin tài khoản</button>
-        <button class="btn btn-outline mt-8">Lịch sử đặt bàn</button>
+      <!-- Header tài khoản giống hình bạn gửi -->
+      <div id="accountCard" class="card account-card">
+        <div class="account-avatar">👤</div>
+        <div id="accountName" class="account-name">Đăng nhập</div>
+        <div id="accountPhone" class="account-phone">
+          Chạm để đăng nhập / đăng ký
+        </div>
       </div>
 
       <div class="card">
-        <div class="card-title">Hỗ trợ</div>
+        <div class="card-title">Tài khoản &amp; hỗ trợ</div>
+        <button class="btn btn-outline mt-8">Thông tin tài khoản</button>
+        <button class="btn btn-outline mt-8">Lịch sử đặt bàn</button>
         <button class="btn btn-outline mt-8">Trung tâm trợ giúp</button>
-        <button class="btn btn-outline mt-8">Liên hệ nhà hàng</button>
       </div>
 
       <div class="card">
         <div class="card-title">Khác</div>
-        <a class="btn btn-ghost mt-8" href="login.html">Đăng xuất (demo)</a>
+        <a class="btn btn-outline mt-8" href="index.html">
+          Về màn hình chào (Welcome)
+        </a>
+        <button id="btnLogout" class="btn btn-ghost mt-8" style="border:1px solid #ccc;">
+          Đăng xuất
+        </button>
       </div>
     </div>
 
@@ -52,5 +61,56 @@
       </a>
     </div>
   </div>
+
+  <div id="toast" class="toast"></div>
+
+  <script>
+    const loggedIn = localStorage.getItem('table360_logged_in') === 'true';
+    const name = localStorage.getItem('table360_user_name') || 'Đăng nhập';
+    const phone = localStorage.getItem('table360_user_phone') || '';
+
+    const accountNameEl = document.getElementById('accountName');
+    const accountPhoneEl = document.getElementById('accountPhone');
+    const accountCard = document.getElementById('accountCard');
+    const btnLogout = document.getElementById('btnLogout');
+
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2000);
+    }
+
+    if (loggedIn) {
+      // Đã đăng nhập: hiển thị tên + "SĐT"
+      accountNameEl.textContent = name;
+      accountPhoneEl.textContent = phone || 'Khách hàng thành viên';
+      btnLogout.style.display = 'block';
+    } else {
+      // Khách: hiển thị "Đăng nhập"
+      accountNameEl.textContent = 'Đăng nhập';
+      accountPhoneEl.textContent = 'Chạm để đăng nhập / đăng ký';
+      btnLogout.style.display = 'none';
+    }
+
+    // Nếu đang là khách, bấm vào card tài khoản -> chuyển sang màn Đăng nhập
+    accountCard.addEventListener('click', function () {
+      if (!loggedIn) {
+        window.location.href = 'login.html';
+      }
+    });
+
+    // Đăng xuất: chỉ chạy khi đã đăng nhập
+    btnLogout.addEventListener('click', function () {
+      localStorage.removeItem('table360_logged_in');
+      localStorage.removeItem('table360_user_name');
+      localStorage.removeItem('table360_user_phone');
+
+      showToast('Đã đăng xuất. Bạn đang ở trạng thái khách.');
+      setTimeout(() => {
+        window.location.href = 'home.html';
+      }, 800);
+    });
+  </script>
 </body>
 </html>
